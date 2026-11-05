@@ -3200,6 +3200,8 @@ MonoBehaviour:
   collectables:
   - <Prefab>k__BackingField: {fileID: 95385475}
     <Probabilite>k__BackingField: 0.2
+  - <Prefab>k__BackingField: {fileID: 4466391672286807580, guid: f913c75544970c242aa632976a1816fb, type: 3}
+    <Probabilite>k__BackingField: 0.775
 --- !u!4 &2083738420
 Transform:
   m_ObjectHideFlags: 0
