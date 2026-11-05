@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -36,6 +37,8 @@ public class Boule : MonoBehaviour
     /// Obtient la vélocité actuelle de la boule.
     /// </summary>
     public Vector3 Velocite => rigidbody.linearVelocity;
+
+    private int nombreDePiecesCollecter;
 
     private void Start()
     {
@@ -135,4 +138,18 @@ public class Boule : MonoBehaviour
         }
         enAcceleration = false;
     }
+
+    /// <summary>
+    /// Incremente le nombre de pieces collecter
+    /// </summary>
+    public void AjouterNombreDePieceCollecter()
+    {
+        nombreDePiecesCollecter++;
+    }
+
+    public int AfficherNombreDePieceCollecter()
+    {
+        return nombreDePiecesCollecter;
+    }
+
 }
