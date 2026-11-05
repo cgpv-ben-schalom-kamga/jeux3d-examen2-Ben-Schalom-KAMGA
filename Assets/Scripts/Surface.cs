@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(DetecteurBoule))]
@@ -11,9 +12,24 @@ public class Surface : MonoBehaviour
     [SerializeField, Tooltip("Positions de génération des objets sur la surface.")]
     private Vector3[] positionGeneration;
 
+    [SerializeField, Tooltip("Référence à la boule.")]
+    private Boule boule;
+
+
+    private Animator animator;
+
+    private bool estEnOscillation = true;
+
+
     private void Awake()
     {
         Detecteur = GetComponent<DetecteurBoule>();
+        animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        boule.mettrePauseAuOscillation += MettrePauseOscillation;
     }
 
     /// <summary>
@@ -42,5 +58,27 @@ public class Surface : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(transform.position + position, 0.2f);
         }
+    }
+
+    /// <summary>
+    /// Met en pause l’oscillation.
+    /// </summary>
+    private void MettrePauseOscillation()
+    {
+        boule.mettrePauseAuOscillation -= MettrePauseOscillation;
+        if (estEnOscillation)
+        {
+            estEnOscillation = false;
+            animator.SetBool("PeutOsciller", false);
+            StartCoroutine(AttendreAvantNouvelleOscillation());
+        }
+        
+    }
+
+    private IEnumerator AttendreAvantNouvelleOscillation()
+    {
+        yield return new WaitForSeconds(3);
+        animator.SetBool("PeutOsciller", true);
+        estEnOscillation = true;
     }
 }

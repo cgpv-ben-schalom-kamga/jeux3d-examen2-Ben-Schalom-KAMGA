@@ -226,6 +226,7 @@ MonoBehaviour:
   - {x: 0, y: 0.5, z: 0.5}
   - {x: 0, y: 0.5, z: -0.5}
   - {x: -2, y: 0.5, z: 0}
+  boule: {fileID: 9187399173122629819, guid: 2c530f6d870d27545a42b5cf17fd00e5, type: 3}
 --- !u!95 &7100201068425956735
 Animator:
   serializedVersion: 7
@@ -234,7 +235,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5585235405789282038}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 1dbcaafb5b1c6944d88c8f291563f298, type: 2}
   m_CullingMode: 0

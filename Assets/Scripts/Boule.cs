@@ -38,10 +38,13 @@ public class Boule : MonoBehaviour
     /// </summary>
     public Vector3 Velocite => rigidbody.linearVelocity;
 
-    private int nombreDePiecesCollecter;
+    private int nombreDePiecesCollecter = 0;
+
+    public event Action mettrePauseAuOscillation;
 
     private void Start()
     {
+        nombreDePiecesCollecter = 0;
         rigidbody = GetComponent<Rigidbody>();
         enAcceleration = false;
 
@@ -62,6 +65,7 @@ public class Boule : MonoBehaviour
         controles.actions.FindAction("Diriger").performed -= CommencerDirection;
         controles.actions.FindAction("Diriger").canceled -= ArreterDirection;
         controles.actions.FindAction("Accelerer").performed -= UtiliserChargeAcceleration;
+        controles.actions.FindAction("MettrePause").performed -= LancerPauseAuOscillation;
     }
 
     /// <summary>
@@ -76,6 +80,7 @@ public class Boule : MonoBehaviour
         controles.actions.FindAction("Diriger").performed += CommencerDirection;
         controles.actions.FindAction("Diriger").canceled += ArreterDirection;
         controles.actions.FindAction("Accelerer").performed += UtiliserChargeAcceleration;
+        controles.actions.FindAction("MettrePause").performed += LancerPauseAuOscillation;
         controles.actions.FindAction("Commencer").performed -= CommencerJeu;
 
         rigidbody.useGravity = true;
@@ -145,6 +150,7 @@ public class Boule : MonoBehaviour
     public void AjouterNombreDePieceCollecter()
     {
         nombreDePiecesCollecter++;
+        Debug.Log(nombreDePiecesCollecter);
     }
 
     public int AfficherNombreDePieceCollecter()
@@ -152,4 +158,26 @@ public class Boule : MonoBehaviour
         return nombreDePiecesCollecter;
     }
 
+    /// <summary>
+    /// Diminuer le nombre de pieces collecter lorsque 
+    /// on fait des pauses aux oscillations
+    /// </summary>
+    private void ConsommerPieces()
+    {
+        nombreDePiecesCollecter = nombreDePiecesCollecter - 5;
+    }
+
+    
+    /// <summary>
+    /// Déclenche la mise en pause de l’oscillation.
+    /// </summary>
+    /// <param name="contexte">Contexte de l’action d’entrée qui déclenche la mise en pause.</param>
+    private void LancerPauseAuOscillation(InputAction.CallbackContext contexte)
+    {
+        if(nombreDePiecesCollecter >= 5)
+        {
+            ConsommerPieces();
+            mettrePauseAuOscillation?.Invoke();
+        }
+    }
 }
