@@ -20,7 +20,6 @@ public class Surface : MonoBehaviour
 
     private bool estEnOscillation = true;
 
-
     private void Awake()
     {
         Detecteur = GetComponent<DetecteurBoule>();
@@ -78,7 +77,7 @@ public class Surface : MonoBehaviour
     private IEnumerator AttendreAvantNouvelleOscillation()
     {
         yield return new WaitForSeconds(3);
-        animator.SetBool("PeutOsciller", true);
+        animator.SetBool("peutOsciller", true);
         estEnOscillation = true;
     }
 }
